@@ -85,6 +85,7 @@ botoes.forEach((button) => {
         const valor = button.getAttribute("data-val");
         if (valor === "clear") {
             screen.innerText = '';
+            permitirPonto = true;
             operacoes = [];
         } else {
             incrementar(valor);            
@@ -101,8 +102,11 @@ operadores.forEach((op) => {
 
     } else {
         op.addEventListener("click", () => {
-            const valorClicado = op.getAttribute("data-val");            
-            incrementar(valorClicado);                    
+            const valorClicado = op.getAttribute("data-val");
+            if (valorClicado !== '-' && !screen.innerText) { // permitir somente - (menos) quando não tiver nada digitado
+                return;
+            }
+            incrementar(valorClicado);                                    
             permitirPonto = true; 
         });
     }
